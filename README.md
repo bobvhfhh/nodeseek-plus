@@ -2,15 +2,36 @@
 
 面向 **NodeSeek / DeepFlood** 的模块化用户脚本，提供阅读增强、帖子互动、正则监控、图片上传和用户资料展示。功能可独立开关，桌面与移动端使用响应式面板。
 
+## 项目来源与修改说明
+
+本仓库是基于 [rirh/nodeseek-plus](https://github.com/rirh/nodeseek-plus) 的个人复刻与修改版本，不是原作者仓库的官方分支。上游项目负责原始功能和设计，本仓库由 `bobvhfhh` 维护，修改后的代码和构建产物以本仓库为准。
+
+复刻基线：
+
+- 上游仓库：[rirh/nodeseek-plus](https://github.com/rirh/nodeseek-plus)
+- 基线提交：`69eb0b2`（`release: 26.917.1446`）
+- 上游许可证：[GPL-3.0-only](LICENSE)
+
+当前版本的主要修改：
+
+- 通知中心默认使用 NodeSeek 原版通知页面，避免刷新后又被自动替换；增强通知中心仍可在设置中启用。
+- 保留通知列表自动加载更多。
+- 通知正文改为点击通知后按需加载，减少列表预取请求、DOM 和缓存压力。
+- 过滤脚本自身生成的消息中心、通知和悬浮卡片 DOM 变化，减少主页面长期重复扫描导致的卡顿。
+- 增加相关回归测试，并重新构建 `dist/` 安装脚本。
+
+上游项目的更新不会自动同步到本仓库；使用或反馈问题时，请以本仓库的实际提交和构建产物为准。
+
 ## 下载与安装
 
 | 入口 | 地址 |
 | --- | --- |
 | 安装 / 更新（推荐） | [点击安装 NodeSeek++](https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js) |
 | Greasy Fork | [脚本介绍与版本记录](https://greasyfork.org/zh-CN/scripts/595488) |
-| GitHub | [rirh/nodeseek-plus](https://github.com/rirh/nodeseek-plus) |
-| GitHub 分发文件 | [完整 userscript](https://github.com/rirh/nodeseek-plus/blob/main/dist/nodeseek-plus-plus.user.js) |
-| 问题反馈 | [GitHub Issues](https://github.com/rirh/nodeseek-plus/issues) |
+| 本仓库 GitHub | [bobvhfhh/nodeseek-plus](https://github.com/bobvhfhh/nodeseek-plus) |
+| 本仓库分发文件 | [完整 userscript](https://github.com/bobvhfhh/nodeseek-plus/blob/main/dist/nodeseek-plus-plus.user.js) |
+| 上游项目 | [rirh/nodeseek-plus](https://github.com/rirh/nodeseek-plus) |
+| 问题反馈 | [本仓库 GitHub Issues](https://github.com/bobvhfhh/nodeseek-plus/issues) |
 
 1. 在浏览器中安装 [Tampermonkey](https://www.tampermonkey.net/) 等用户脚本管理器。
 2. 打开上方“安装 / 更新”链接，在脚本管理器页面点击“安装”。
