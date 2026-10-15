@@ -3180,6 +3180,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			return;
 		}
 	}
+	function readPaths(entries) {
+		return new Set(entries.map((entry) => entry.path));
+	}
 	function directLink(href, base) {
 		try {
 			let url = new URL(href, base);
@@ -3402,8 +3405,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				record("entries");
 				load("recent");
 				const markRead = () => {
-					const entries = load("entries");
-					document.querySelectorAll(".post-title a").forEach((a) => a.classList.toggle("nspp-read", entries.some((entry) => entry.path === key(a.href))));
+					const paths = readPaths(load("entries"));
+					document.querySelectorAll(".post-title a").forEach((a) => a.classList.toggle("nspp-read", paths.has(key(a.href) || "")));
 				};
 				const stop = ctx.watch(markRead);
 				window.addEventListener("beforeunload", () => record("recent"), {

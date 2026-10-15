@@ -5,7 +5,7 @@ import type { Context, Feature } from '../core/types';
 import { format } from 'date-fns';
 import { unsafeWindow } from '../lib/userscript';
 import { zhCN } from 'date-fns/locale';
-import { postPath, directLink } from './reading-logic';
+import { postPath, directLink, readPaths } from './reading-logic';
 const contentSelector = ':is(.post-content,.comment-content,.nsk-content,.markdown-body)';
 function style(css: string) { const el = document.createElement('style'); el.textContent = css; document.head.append(el); return () => el.remove(); }
 function infinite(ctx: Context) {
@@ -153,8 +153,8 @@ const historyFeature: Feature = {
         record('entries');
         load('recent');
         const markRead = () => {
-            const entries = load('entries');
-            document.querySelectorAll<HTMLAnchorElement>('.post-title a').forEach(a => a.classList.toggle('nspp-read', entries.some(entry => entry.path === key(a.href))));
+            const paths = readPaths(load('entries'));
+            document.querySelectorAll<HTMLAnchorElement>('.post-title a').forEach(a => a.classList.toggle('nspp-read', paths.has(key(a.href) || '')));
         };
         const stop = ctx.watch(markRead);
         window.addEventListener('beforeunload', () => record('recent'), { capture: true, signal: ctx.signal });

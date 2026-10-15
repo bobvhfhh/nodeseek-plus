@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { postPath, directLink, filterLines, shouldFilter } from '../src/features/reading-logic.ts';
+import { postPath, directLink, filterLines, readPaths, shouldFilter } from '../src/features/reading-logic.ts';
 
 const base = 'https://www.nodeseek.com/post-123-2';
 test('history normalizes every page to the real first-page route', () => {
@@ -9,6 +9,11 @@ test('history normalizes every page to the real first-page route', () => {
   assert.equal(postPath('/post-123-1', base), '/post-123-1');
   assert.equal(postPath('https://other.test/post-123-2', base), undefined);
   assert.equal(postPath('/post-123-2/not-a-post', base), undefined);
+});
+test('history read paths are deduplicated for constant-time list matching', () => {
+  const paths = readPaths([{ path: '/post-12-1' }, { path: '/post-13-1' }, { path: '/post-12-1' }]);
+  assert.deepEqual([...paths], ['/post-12-1', '/post-13-1']);
+  assert.equal(paths.has('/post-99-1'), false);
 });
 test('redirect cleaning unwraps local redirects and rejects executable protocols', () => {
   assert.equal(directLink('/jump?to=https%3A%2F%2Fexample.com%2Fhi', base), 'https://example.com/hi');

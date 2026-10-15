@@ -10,6 +10,9 @@ export function postPath(href: string, base: string): string | undefined {
         return;
     }
 }
+export function readPaths(entries: readonly { path: string }[]): Set<string> {
+    return new Set(entries.map(entry => entry.path));
+}
 export function directLink(href: string, base: string): string | undefined {
     try {
         let url = new URL(href, base);
