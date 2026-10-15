@@ -1,4 +1,4 @@
-export const UPDATE_URL = 'https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js';
+export const UPDATE_URL = 'https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js';
 export const UPDATE_META_URL = UPDATE_URL.replace(/\.user\.js$/, '.meta.js');
 
 export function readUpdateVersion(source: string): string {

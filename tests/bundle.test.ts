@@ -27,7 +27,7 @@ async function fixture(settings: Record<string, unknown> = {}, html = '', path =
     type RequestOptions = { url: string; onload(response: { status: number; responseText: string }): void };
     const original = (window as unknown as { GM_xmlhttpRequest?: (options: RequestOptions) => unknown }).GM_xmlhttpRequest;
     Object.assign(window, { GM_xmlhttpRequest: (options: RequestOptions) => {
-      if (options.url.split('?')[0] !== 'https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.meta.js') {
+      if (options.url.split('?')[0] !== 'https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.meta.js') {
         if (!original) throw new Error('No fixture GM response');
         return original(options);
       }
@@ -161,7 +161,7 @@ test('manual update checks read metadata and open an update link only for a newe
     button.click(); button.click();
     await new Promise(resolve => setTimeout(resolve, 30));
     assert.equal(requests.length, 1);
-    assert.equal(requests[0].url.split('?')[0], 'https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.meta.js');
+    assert.equal(requests[0].url.split('?')[0], 'https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.meta.js');
     assert.ok(new URL(requests[0].url).searchParams.get('_'));
     assert.equal(requests[0].nocache, true);
     assert.match(requests[0].headers['Cache-Control'], /no-store/);
@@ -171,7 +171,7 @@ test('manual update checks read metadata and open an update link only for a newe
     assert.equal(dialog.open, true);
     assert.match(dialog.textContent!, /99\.999\.9999/);
     const install = dialog.querySelector<HTMLAnchorElement>('a')!;
-    assert.equal(install.href, 'https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js');
+    assert.equal(install.href, 'https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js');
     assert.equal(install.target, '_blank');
     dialog.close('cancel');
     await new Promise(resolve => setTimeout(resolve, 10));
@@ -212,7 +212,7 @@ test('page entry always checks updates while system and page reminders are dedup
     assert.equal(requests.length, 1, 'page entry ignores cached checks and another page checking updates');
     assert.equal(notifications.length, 1, 'a hidden page still sends a system notification');
     assert.match(notifications[0].title, /发现新版本/);
-    assert.equal(notifications[0].url, 'https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js');
+    assert.equal(notifications[0].url, 'https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js');
     assert.equal(f.window.document.querySelector('.nspp-confirm-dialog'), null);
     Object.defineProperty(f.window.document, 'hidden', { configurable: true, value: false });
     f.window.document.dispatchEvent(new f.window.Event('visibilitychange'));
@@ -632,7 +632,7 @@ test('settings categories are anchors, scroll updates selection and search filte
     assert.equal(root.querySelector('.categories a')!.textContent, '用户');
     search.value = 'github'; search.dispatchEvent(new f.window.Event('input'));
     assert.deepEqual([...root.querySelectorAll('.categories a')].map(link => link.textContent), ['关于']);
-    assert.ok(root.querySelector('.about-links a[href="https://github.com/rirh/nodeseek-plus"]'));
+    assert.ok(root.querySelector('.about-links a[href="https://github.com/bobvhfhh/nodeseek-plus"]'));
   } finally { await f.close(); }
 });
 

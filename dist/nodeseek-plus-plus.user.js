@@ -4,14 +4,14 @@
 // @version      26.917.1446
 // @description  模块化论坛增强：阅读、过滤、回复、签到、交易与关键词监控，一个功能一套实现。
 // @license      GPL-3.0-only
-// @downloadURL  https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js
-// @updateURL    https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.meta.js
+// @downloadURL  https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js
+// @updateURL    https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.meta.js
 // @match        https://www.nodeseek.com/*
 // @match        https://www.deepflood.com/*
 // @connect      api.nodeimage.com
 // @connect      rss.nodeseek.com
 // @connect      api.bimg.eu.org
-// @connect      update.greasyfork.org
+// @connect      raw.githubusercontent.com
 // @grant        GM_addStyle
 // @grant        GM_getValue
 // @grant        GM_notification
@@ -572,7 +572,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		if (navigator.locks?.request) return navigator.locks.request(key, { ifAvailable: true }, (lock) => lock ? execute() : false);
 		return execute();
 	}
-	var UPDATE_URL = "https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js";
+	var UPDATE_URL = "https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js";
 	var UPDATE_META_URL = UPDATE_URL.replace(/\.user\.js$/, ".meta.js");
 	function readUpdateVersion(source) {
 		const version = (source.match(/^\s*\/\/ ==UserScript==\r?\n([\s\S]*?)^\/\/ ==\/UserScript==/m)?.[1])?.match(/^\/\/\s+@version\s+(\d+(?:\.\d+)+)\s*$/m)?.[1];
@@ -703,7 +703,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 				const latest = state();
 				if (signal.aborted || !latest.version || !isNewerVersion(latest.version, "26.917.1446")) return;
 				if (latest.notifiedVersion === latest.version && Date.now() - (latest.notifiedAt || 0) < REMINDER_INTERVAL) return;
-				if (systemNotify(`发现新版本 v${latest.version}，当前 v26.917.1446。点击前往更新。`, "https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js", "nspp:script-update", "发现新版本")) GM_setValue$1(STATE_KEY, {
+				if (systemNotify(`发现新版本 v${latest.version}，当前 v26.917.1446。点击前往更新。`, "https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js", "nspp:script-update", "发现新版本")) GM_setValue$1(STATE_KEY, {
 					...state(),
 					notifiedVersion: latest.version,
 					notifiedAt: Date.now()
@@ -791,11 +791,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		const links = document.createElement("div");
 		links.className = "about-links";
 		for (const [label, href] of [
-			["GitHub · rirh/nodeseek-plus", "https://github.com/rirh/nodeseek-plus"],
+			["GitHub · bobvhfhh/nodeseek-plus", "https://github.com/bobvhfhh/nodeseek-plus"],
 			["下载安装 / 手动更新", UPDATE_URL],
-			["Greasy Fork 脚本页", "https://greasyfork.org/zh-CN/scripts/595488"],
-			["使用说明", "https://github.com/rirh/nodeseek-plus#readme"],
-			["反馈问题", "https://github.com/rirh/nodeseek-plus/issues"]
+			["使用说明", "https://github.com/bobvhfhh/nodeseek-plus#readme"],
+			["反馈问题", "https://github.com/bobvhfhh/nodeseek-plus/issues"]
 		]) {
 			const link = document.createElement("a");
 			link.href = href;

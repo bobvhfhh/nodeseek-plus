@@ -2,6 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { isNewerVersion, readUpdateVersion, UPDATE_META_URL, UPDATE_URL } from '../src/lib/update-version.ts';
 
+const DISTRIBUTION_URL = 'https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js';
+
 test('update metadata accepts userscript headers and rejects errors or script-body version strings', () => {
   const header = '// ==UserScript==\r\n// @name NodeSeek++\r\n// @version 26.914.1121\r\n// ==/UserScript==';
   assert.equal(readUpdateVersion(header), '26.914.1121');
@@ -9,6 +11,7 @@ test('update metadata accepts userscript headers and rejects errors or script-bo
     assert.throws(() => readUpdateVersion(source), /有效版本/);
   }
   assert.equal(UPDATE_META_URL, UPDATE_URL.replace('.user.js', '.meta.js'));
+  assert.equal(UPDATE_URL, DISTRIBUTION_URL);
 });
 
 test('only strictly newer numeric versions trigger updates, including same-minute releases', () => {

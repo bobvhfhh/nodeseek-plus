@@ -8,11 +8,10 @@ export function aboutContent(check: () => Promise<void>): HTMLElement {
   const summary = document.createElement('p'); summary.textContent = 'NodeSeek / DeepFlood 论坛增强 · GPL-3.0-only';
   const links = document.createElement('div'); links.className = 'about-links';
   for (const [label, href] of [
-    ['GitHub · rirh/nodeseek-plus', 'https://github.com/rirh/nodeseek-plus'],
+    ['GitHub · bobvhfhh/nodeseek-plus', 'https://github.com/bobvhfhh/nodeseek-plus'],
     ['下载安装 / 手动更新', UPDATE_URL],
-    ['Greasy Fork 脚本页', 'https://greasyfork.org/zh-CN/scripts/595488'],
-    ['使用说明', 'https://github.com/rirh/nodeseek-plus#readme'],
-    ['反馈问题', 'https://github.com/rirh/nodeseek-plus/issues'],
+    ['使用说明', 'https://github.com/bobvhfhh/nodeseek-plus#readme'],
+    ['反馈问题', 'https://github.com/bobvhfhh/nodeseek-plus/issues'],
   ]) {
     const link = document.createElement('a'); link.href = href; link.textContent = label; link.target = '_blank'; link.rel = 'noopener noreferrer'; links.append(link);
   }

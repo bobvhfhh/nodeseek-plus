@@ -26,10 +26,9 @@
 
 | 入口 | 地址 |
 | --- | --- |
-| 安装 / 更新（推荐） | [点击安装 NodeSeek++](https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js) |
-| Greasy Fork | [脚本介绍与版本记录](https://greasyfork.org/zh-CN/scripts/595488) |
+| 安装 / 更新（推荐） | [点击安装 NodeSeek++](https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js) |
 | 本仓库 GitHub | [bobvhfhh/nodeseek-plus](https://github.com/bobvhfhh/nodeseek-plus) |
-| 本仓库分发文件 | [完整 userscript](https://github.com/bobvhfhh/nodeseek-plus/blob/main/dist/nodeseek-plus-plus.user.js) |
+| 本仓库分发文件 | [完整 userscript](https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js) |
 | 上游项目 | [rirh/nodeseek-plus](https://github.com/rirh/nodeseek-plus) |
 | 问题反馈 | [本仓库 GitHub Issues](https://github.com/bobvhfhh/nodeseek-plus/issues) |
 
@@ -46,11 +45,11 @@
 
 **设置内更新：** 打开设置，点击顶部或「关于」中的“检查更新” → 发现新版后点击“前往更新” → 在脚本管理器中确认更新 → 刷新论坛页面。
 
-**手动更新：** 重新打开 [安装 / 更新链接](https://update.greasyfork.org/scripts/595488/NodeSeek%2B%2B.user.js)，在脚本管理器中确认覆盖更新，再刷新论坛。无需卸载旧版，以免丢失脚本管理器中的配置。
+**手动更新：** 重新打开 [安装 / 更新链接](https://raw.githubusercontent.com/bobvhfhh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js)，在脚本管理器中确认覆盖更新，再刷新论坛。无需卸载旧版，以免丢失脚本管理器中的配置。
 
 正式版也会自动检查更新：页面打开约 30 秒后检查，之后每 6 小时检查一次；发现新版本通过弹窗提醒，同一版本 24 小时内不重复提醒。只有论坛页面保持打开时，脚本的后台检查才会运行。
 
-GitHub 分发文件可能比油叉同步更早；普通用户建议使用上方油叉安装链接。维护者的 `make deploy` 发布流程见本文末尾。
+本仓库通过 GitHub Raw 分发，安装脚本会从本仓库读取更新元信息。维护者的发布流程见本文末尾。
 
 ## 主要功能
 
@@ -180,17 +179,14 @@ pnpm build --mode stage
 
 产物位于 `dist-stage/`，脚本名称为 `NodeSeek++ (Stage)`，不要作为正式版本上传。
 
-## 发布到 Greasy Fork
+## 发布本仓库版本
 
 1. 修改 `package.json` 的 `version`，保持脚本名称和 namespace 稳定。
 2. 执行 `pnpm typecheck`、`pnpm build` 和 `pnpm test`。
-3. 登录 [Greasy Fork](https://greasyfork.org/zh-CN)，首次发布创建脚本；后续更新在原脚本页面提交新版本。
-4. 上传或粘贴 `dist/nodeseek-plus-plus.user.js` 的完整内容，填写中文介绍及变更说明。
-5. 使用发布后的安装链接验证安装与升级。
+3. 提交并推送 `dist/nodeseek-plus-plus.user.js` 与 `dist/nodeseek-plus-plus.meta.js` 到本仓库的 `main`。
+4. 使用本 README 顶部的安装链接验证新安装与升级。
 
 构建配置使用非压缩输出，并把第三方说明与 highlight.js 许可证写入脚本。请保留 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 和 [references/highlight.js.LICENSE](references/highlight.js.LICENSE)，构建时会读取它们。
-
-发布前查看 [油叉代码规则](https://greasyfork.org/zh-CN/help/code-rules) 和 [元信息说明](https://greasyfork.org/zh-CN/help/meta-keys)。
 
 ## 许可证与参考
 
@@ -199,9 +195,9 @@ pnpm build --mode stage
 上游功能对照和参考来源见 [功能矩阵](docs/feature-matrix.md)；`references/upstream/` 用于保留参考材料，不作为运行时入口。
 
 
-### 一键发布与油叉同步
+### 一键发布
 
-设置顶部版本号旁提供“检查更新”。正式版会在页面打开约 30 秒后检查油叉版本，之后每 6 小时检查一次；后台失败不打扰，同一新版本 24 小时内只提醒一次。后台发现更新时会等页面可见且没有打开弹窗，再显示响应式更新提示；“前往更新”打开油叉安装页，“稍后提醒”保留当前版本。检查只读取 `.meta.js` 版本信息，不下载执行远程代码。开发版与 Stage 版不自动检查更新。
+设置顶部版本号旁提供“检查更新”。正式版会在页面打开约 30 秒后检查本仓库的更新元信息，之后每 6 小时检查一次；后台失败不打扰，同一新版本 24 小时内只提醒一次。后台发现更新时会等页面可见且没有打开弹窗，再显示响应式更新提示；“前往更新”打开本仓库安装页，“稍后提醒”保留当前版本。检查只读取 `.meta.js` 版本信息，不下载执行远程代码。开发版与 Stage 版不自动检查更新。
 
 直接执行，无需提前手动提交源码：
 
@@ -215,12 +211,4 @@ make deploy
 
 只生成本地产物可使用 `make deploy-local`。发布中途失败会保留文件和提交；检查并处理当前状态后重试。若只是推送失败，可直接重试 `git push origin main`。
 
-油叉需完成一次性绑定：
-
-1. 在已发布脚本的管理/同步页面设置代码同步地址：
-   `https://raw.githubusercontent.com/rirh/nodeseek-plus/main/dist/nodeseek-plus-plus.user.js`
-2. 在油叉账户的 Webhook 同步页面取得专属接收地址及配置说明。
-3. 在 GitHub 仓库 Settings → Webhooks 中按油叉说明添加接收地址，订阅 push 事件。
-4. 发布后检查 GitHub Webhook 的最近投递，以及油叉脚本页面的版本号与同步错误。
-
-Webhook 接收地址可能包含账户凭据，不要提交到仓库。`make deploy` 推送成功只代表 GitHub 已更新，油叉异步同步仍需检查；首次发布与同步绑定不会由该命令自动创建。
+`make deploy` 推送成功后，本仓库的 Raw 安装与元信息链接会随 `main` 更新；使用顶部安装链接确认油猴能够完成安装和升级。
